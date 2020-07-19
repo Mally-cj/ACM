@@ -58,3 +58,13 @@ a,b交换
 a,b=b,a
 ```
 
+
+
+#### 查找
+
+```
+sort(num,num+6,cmd);                      //按从大到小排序
+int pos3=lower_bound(num,num+6,7,greater<int>())-num;  //返回数组中第一个小于或等于被查数的值 
+int pos4=upper_bound(num,num+6,7,greater<int>())-num;  //返回数组中第一个小于被查数的值 
+```
+
