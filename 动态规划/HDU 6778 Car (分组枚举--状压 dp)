@@ -1,0 +1,128 @@
+# [HDU 6778 Car (分组枚举-->状压 dp)](https://vjudge.net/problem/HDU-6778)
+
+**注**：
+
+本文先分析会tle好想的dfs思路，再看转态 dp
+
+**题目**：
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200726113658961.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hkZGRkaA==,size_16,color_FFFFFF,t_70)
+
+### **wa点**：
+
+题目说2辆车车牌可能相同，但是车牌相同的车不能算做1辆，依然是2辆。
+
+### **题意转换**：
+
+
+
+**题意转换**：
+
+有10个有价值的物品，分成5组，使得这5组中的最小和值最大，其中10个物品的价值可以是0，每组的数量可以是0。
+
+### **分析**：
+
+### <一>  全排列1
+
+由于每组的个数不确定，不容易对每组去枚举。
+
+[博客传送门](https://www.cnblogs.com/jianjinxiani/p/13380855.html) ，这个博客用的就是对组枚举，首先规定第i组的物品个数肯定会大于第i-1组，这样就能先有 个数明确的组分配，再去选择具体器件
+
+```pseudocode
+
+void distrubit1_dfs(){}
+...
+void distrubit7_dfs(){}
+void main()
+{
+	distrubit1_dfs();
+	distrubit2_dfs();
+	distrubit3_dfs();
+	distrubit4_dfs();
+	distrubit5_dfs();
+	distrubit6_dfs();
+	distrubit7_dfs();
+}
+```
+
+### <二>全排列2
+
+枚举这10个物品，10个物品有5种选择， $5^{10}$种情况，而这样的话没办法减枝，会t，就是按下面这个写法（我用10个循环也试过，也会tle）
+
+```
+void dfs(int car_id)
+{
+    if(car_id==10)
+    {
+        int now=day_sum[1];
+        for(int day=1;day<=5;++day) now=min(now,day_sum[day]);
+        ans=max(now,ans);
+        return;
+    }
+    for(int day=1;day<=5;++day)
+    {
+        day_sum[day]+=car[car_id];
+        dfs(car_id+1);    //没法剪枝
+        day_sum[day]-=car[car_id];
+    }
+}
+```
+
+### <三> 状态dp
+
+随着时间变化的是状态，意味着每刻的状态是可枚举量
+
+由于每种物品只能取一件，那么状态就是由物品是否取了决定。而时间的变化就是day的增加。
+
+也就是说上面全排列的讨论是讨论第1,2，k组分别是有哪些物件，而转态dp讨论的是 第1到第k组时，已经分配了哪些物件。
+
+```c++
+#include "iostream"
+#include "algorithm"
+#include "cstring"
+#include "vector"
+using namespace  std;
+const int DAY=6;
+const int NUM=1<<10+2;
+int car[20];
+int n,ans;
+int dp[DAY][NUM];  //第day組 转态量为。。的时最小量
+void StatusDp()
+{
+    memset(dp,-1,sizeof(dp));
+    dp[0][0]=0x3f3f3f3f;
+    for(int day=1;day<=5;++day)
+        for(int last=0;last<(1<<10);++last)
+        {
+            if(dp[day-1][last]==-1)continue;
+            for(int wantdo=0;wantdo<(1<<10);++wantdo)
+            {
+                if(last&wantdo)continue;
+                int now=0;
+                for(int k=0;k<10;++k)
+                {
+                    if( (wantdo>>k) &1)now+=car[k];
+                }
+                dp[day][last|wantdo]=max( dp[day][last|wantdo], min(dp[day-1][last],now ) );
+            }
+        }
+}
+int main()
+{
+//    freopen("in.text","r",stdin);
+    int cas;
+    scanf("%d",&cas);
+    while (cas--) {
+        memset(car, 0, sizeof(car));
+        scanf("%d", &n);
+        for(int tem,i=1;i<=n;++i)
+        {
+            scanf("%d",&tem);++car[tem%10];
+        }
+      StatusDp();
+        cout<<n-dp[5][1023]<<endl;
+    }
+    return 0;
+}
+```
+

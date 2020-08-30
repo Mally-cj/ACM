@@ -45,7 +45,7 @@ priority_queue<re,vector<re>,cmp > have;
 a=a|1
 ```
 
-去重
+##### 去重
 
 ```
 sort(a+1,a+n+1);
@@ -60,11 +60,52 @@ a,b=b,a
 
 
 
+清空数组
+
+```c++
+memset(apple,0,sizeof(apple[0])*(n+1)); // apple 的每个元素初始化为 0，需要多少清楚多少
+```
+
+
+
 #### 查找
 
 ```
 sort(num,num+6,cmd);                      //按从大到小排序
 int pos3=lower_bound(num,num+6,7,greater<int>())-num;  //返回数组中第一个小于或等于被查数的值 
 int pos4=upper_bound(num,num+6,7,greater<int>())-num;  //返回数组中第一个小于被查数的值 
+```
+
+
+
+#### 常用数学函数
+
+1. ```c++
+   __gcd(a,b);
+   ```
+
+   
+
+2. 查找一个数的二进制形式中有多少个1，  
+
+```
+__builtin_popcount(i)
+```
+
+#### cin加速
+
+cin加速
+
+```
+	ios_base::sync_with_stdio(0), cin.tie(0);
+```
+
+
+
+#### 极大值
+
+```
+    const int MAX = numeric_limits<int>::max();
+
 ```
 

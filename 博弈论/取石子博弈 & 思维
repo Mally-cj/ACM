@@ -1,0 +1,56 @@
+## The Stones Game【取石子博弈 & 思维】
+
+### 注
+
+2020.7.22补题
+
+**Problem G. The Stones Game**
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200202180900125.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1FfMTg0OTgwNTc2Nw==,size_16,color_FFFFFF,t_70)
+
+### **题意**
+
+有n个石头，m个选手
+
+每个选手要做2步操作：
+
+（1）拿一块石头或者不拿
+
+（2）如果上一个选手的操作（1）是拿了石头 或者当前选手是1号选手，那么这一步不可以拿石头，反之，必须拿石头。
+
+> " if this is not the first turn and in the previous turn the player  decided not to remove a stonein his/her first step, then the current  player must remove a stone in this step" 这句话很难理解~，把它变成否定句，and变成or，就可以得到上面的那句话。
+
+
+
+### **分析**
+
+1号选手第（1）步拿了石头，（2）步不能拿石头，那么2号选手第（1）步可以选择拿和不拿，第（2）步不能拿。
+
+因此2个选手最少要拿1个石头，最多拿2个石头、
+
+如果是有3个选手，也可以推得最多拿3个，最少拿2个。
+
+因此如果有3个选手，要拿3个石头，那么3号选手是必赢态。
+
+有n个石头，m个选手时，n%m号选手是必赢态。
+
+```c++
+#include "bits/stdc++.h"
+using namespace  std;
+int main()
+{
+    int cas;
+    scanf("%d",&cas);
+    while (cas--)
+    {
+        int n,m,y;
+        scanf("%d %d %d",&n,&m,&y);
+        int k=n%m;
+        if(k==0)k=m;
+        if(y==k)cout<<"YES"<<endl;
+        else cout<<"NO"<<endl;
+    }
+    return 0;
+}
+```
+
