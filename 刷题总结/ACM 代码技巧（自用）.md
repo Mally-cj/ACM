@@ -109,3 +109,13 @@ cin加速
 
 ```
 
+
+
+printf转义字符
+
+```
+    printf("%Lf",longdoublevalue);\\打印long double 类型
+      if(hh<12)printf("%02d:%02d",hh,mm); \\不足两位用0补前导
+
+```
+
