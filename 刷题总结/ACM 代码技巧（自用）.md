@@ -119,3 +119,54 @@ printf转义字符
 
 ```
 
+
+
+#### STL
+
+##### set
+
+```c++
+ // lower_bound()找到大于或等于某值的第一个元素的迭代器
+  set<int>aa;
+  aa.insert(3);
+  aa.insert(10);
+  printf("%d",*aa.lower_bound(4)); //打印10
+```
+
+**value_comp**()    来自[博客1](https://zhidao.baidu.com/question/281009061.html)
+
+C++中的map::value_comp()原型是:
+value_compare value_comp ( ) const;
+其返回值是一个bai比较类的对du象，这个类是map::value_compare，并且是map的一个内部类zhi。
+返回的这dao个对象可以用来通过比较两个元素的value来判决它们对应的key在map的位置谁在前面谁在后面。
+
+```c++
+map<char,int> mymap;
+map<char,int>::iterator it;
+pair<char,int> highest;
+
+mymap['x']=1001;
+mymap['y']=2002;
+mymap['z']=3003;
+
+cout << "mymap contains:\n";
+
+highest=*mymap.rbegin(); // last element
+
+it=mymap.begin();
+do {
+cout << (*it).first << " => " << (*it).second << endl;
+} while ( mymap.value_comp()(*it++, highest) );
+
+
+```
+
+输出结果为
+
+```
+mymap contains:
+x => 1001
+y => 2002
+z => 3003
+```
+
