@@ -1,4 +1,4 @@
-﻿[专题链接](https://vjudge.net/contest/66569)
+[专题链接](https://vjudge.net/contest/66569)
 
 [推荐关于图论的刷题](https://vjudge.net/article/2169)
 
@@ -17,6 +17,7 @@
 也就是给了点图，找最小生成树的最大边。
 
 ## C - Heavy Transportation poj-1797
+
 **题意：**
 有n个点m条边，要构建一个经过一个==能从节点1到节点n的最大路（树）==，使的最小边最大，建最大生成树。
 **题解：**
