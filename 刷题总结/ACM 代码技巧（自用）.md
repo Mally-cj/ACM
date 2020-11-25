@@ -36,7 +36,7 @@ struct cmp {
         return a.p < b.p;
     }
 };
-priority_queue<re,vector<re>,cmp > have;
+priority_queue<re,vector<re>,cmp > have;  
 ```
 
 表示a+1
